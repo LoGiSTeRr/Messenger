@@ -12,13 +12,14 @@ class UserManager : IUserManager
         Users = new List<User>();
     }
     
-    public void AddUser()
+    public void AddUser(User user)
     {
-        throw new System.NotImplementedException();
+        Users.Add(user);
     }
 
-    public void RemoveUser()
+    public void RemoveUser(User user)
     {
-        throw new System.NotImplementedException();
+        Users.Remove(user);
+
     }
 }

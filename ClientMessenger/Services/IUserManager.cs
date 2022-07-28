@@ -6,6 +6,6 @@ namespace ClientMessenger.Services;
 public interface IUserManager
 {
     IList<User> Users { get; }
-    void AddUser();
-    void RemoveUser();
+    void AddUser(User user);
+    void RemoveUser(User user);
 }

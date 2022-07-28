@@ -10,4 +10,10 @@ public class User
         get => $"{LastName[0]}{Name[0]}";
         set { }
     }
+
+    public string FullName
+    {
+        get => $"{LastName} {Name}";
+        set { }
+    }
 }

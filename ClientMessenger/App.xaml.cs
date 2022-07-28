@@ -27,6 +27,7 @@ namespace ClientMessenger
             Container.Register<MainView>(Lifestyle.Singleton);
             Container.Register<MainViewModel>(Lifestyle.Singleton);
             Container.Register<UserManager>(Lifestyle.Singleton);
+            Container.Register<MessageManager>(Lifestyle.Singleton);
         }
     }
 }

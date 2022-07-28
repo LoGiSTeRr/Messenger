@@ -9,7 +9,7 @@
              d:DataContext="{d:DesignInstance vm:ClientChatViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             
+
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
@@ -18,42 +18,69 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}">
-    
+
     <UserControl.Resources>
-        <s:FirstCharValueConverter x:Key="PrefixValueConverter"/>
+        <s:FirstCharValueConverter x:Key="PrefixValueConverter" />
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="40" />
+            <RowDefinition />
+            <RowDefinition Height="55" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        
-        <ListView Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Margin="5" x:Name="MyListView" ItemsSource="{Binding Manager.Users}">
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="People in chat:" VerticalAlignment="Bottom" />
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Mini-Chat" FontSize="20" HorizontalAlignment="Center" />
+        <ListView Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Margin="5" x:Name="MyListView"
+                  ItemsSource="{Binding UserManager.Users}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <materialDesign:Chip
-                        Icon="{Binding Path=Name, Converter={StaticResource PrefixValueConverter},
-                              ConverterParameter=1}"
-                        Style="{StaticResource MaterialDesignOutlineChip}">
-                        <materialDesign:Chip.ContentTemplate>
-                            <DataTemplate>
-                                <TextBlock>
-                                    <Run Text="{Binding LastName}"/>
-                                    <Run Text="{Binding Name}"/>
-                                </TextBlock>
-                            </DataTemplate>
-                        </materialDesign:Chip.ContentTemplate>
-                    </materialDesign:Chip>
+                        BorderThickness="1"
+                        Icon="{Binding Prefix}"
+                        Content="{Binding FullName}"
+                        Style="{StaticResource MaterialDesignOutlineChip}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="60" />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Margin="5 0 5 0"
+                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                     TextWrapping="Wrap"
+                     MaxWidth="400"
+                     materialDesign:HintAssist.Hint="Message" />
+            <Button Grid.Column="1" Margin="5 0 5 0">
+                <materialDesign:PackIcon  Kind="Send" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Button>
+        </Grid>
+        
+        
+        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"  
+                  ItemsSource="{Binding MessageManager.Messages}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:Chip
+                            BorderThickness="1"
+                            Icon="{Binding  MessageBy.Prefix}"
+                            Content="{Binding MessageBy.FullName}"
+                            Style="{StaticResource MaterialDesignOutlineChip}" />
+                        <TextBlock Text="{Binding Content}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            
+        </ListView>
+        
         
     </Grid>
 </UserControl>
