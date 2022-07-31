@@ -58,7 +58,8 @@ public class HostServer
                                 ct.ThrowIfCancellationRequested();
                             }
                             client.Receive(messageBuffer);
-                            Console.WriteLine($"Message from {Encoding.UTF8.GetString(messageBuffer)}");
+                            string[] messageReceived = Encoding.UTF8.GetString(messageBuffer).Split('|');
+                            SendMessage(messageReceived[0], messageReceived[1], messageReceived[2]);
                         }
 
                     }
@@ -74,13 +75,7 @@ public class HostServer
             }
         }, ct, TaskCreationOptions.LongRunning, TaskScheduler.Default);
     }
-    
-    private bool ReceiveAndConnectClient()
-    {
-        return true;
-    }
-
-    private void SendMessage(string message, string name, string surname)
+    private void SendMessage(string surname, string name, string message)
     {
         foreach (var socket in _clientsSockets)
         {
