@@ -12,7 +12,7 @@ public partial class MainViewModel : ViewModel
 
     public MainViewModel()
     {
-        CurrentViewModel = App.Container.GetInstance<ClientChatViewModel>();
+        CurrentViewModel = App.Container.GetInstance<RegistrationUserViewModel>();
         var factory = App.Container.GetInstance<ViewModelFactory>();
         WeakReferenceMessenger.Default.Register<ChangeViewMessage>(this, (_, message) =>
         {

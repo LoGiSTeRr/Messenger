@@ -10,7 +10,7 @@ public class ViewModelFactory
         return type switch
         {
             ViewModelEnum.ClientChatViewModel => App.Container.GetInstance<ClientChatViewModel>(),
-            ViewModelEnum.TemplateSecondViewModel => App.Container.GetInstance<TemplateSecondViewModel>()
+            ViewModelEnum.RegistrationUserViewModel => App.Container.GetInstance<RegistrationUserViewModel>()
         };
     }
 }

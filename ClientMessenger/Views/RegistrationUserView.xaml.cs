@@ -2,9 +2,9 @@
 
 namespace ClientMessenger.Views;
 
-public partial class TemplateSecondView : UserControl
+public partial class RegistrationUserView : UserControl
 {
-    public TemplateSecondView()
+    public RegistrationUserView()
     {
         InitializeComponent();
     }

@@ -1,2 +1,6 @@
-﻿HostServer hostServer = new HostServer();
+﻿ManualResetEvent manualResetEvent = new ManualResetEvent(false);
+
+HostServer hostServer = new HostServer();
 hostServer.Launch();
+
+manualResetEvent.WaitOne();

@@ -23,7 +23,7 @@ namespace ClientMessenger
         {
             Container.Register<ViewModelFactory>(Lifestyle.Singleton);
             Container.Register<ClientChatViewModel>(Lifestyle.Singleton);
-            Container.Register<TemplateSecondViewModel>(Lifestyle.Singleton);
+            Container.Register<RegistrationUserViewModel>(Lifestyle.Singleton);
             Container.Register<MainView>(Lifestyle.Singleton);
             Container.Register<MainViewModel>(Lifestyle.Singleton);
             Container.Register<UserManager>(Lifestyle.Singleton);

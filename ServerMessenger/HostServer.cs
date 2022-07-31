@@ -14,13 +14,12 @@ public class HostServer
     {
         _server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
         _ipAddress = IPAddress.Parse("127.0.0.1");
-        _endPoint = new IPEndPoint(_ipAddress, 55555);
+        _endPoint = new IPEndPoint(_ipAddress, 44433);
         _clientsSockets = new ConcurrentBag<Socket>();
     }
 
     public void Launch()
     {
-        ManualResetEvent manualResetEvent = new ManualResetEvent(false);
         CancellationTokenSource cts = new CancellationTokenSource();
         CancellationToken ct = cts.Token;
         Task.Factory.StartNew(() =>
@@ -58,8 +57,11 @@ public class HostServer
                                 ct.ThrowIfCancellationRequested();
                             }
                             client.Receive(messageBuffer);
+                            Console.WriteLine("Message Received");
+
                             string[] messageReceived = Encoding.UTF8.GetString(messageBuffer).Split('|');
-                            SendMessage(messageReceived[0], messageReceived[1], messageReceived[2]);
+                            SendMessages(messageReceived[0], messageReceived[1], messageReceived[2]);
+                            Console.WriteLine("Message Sent Everyone");
                         }
 
                     }
@@ -75,7 +77,7 @@ public class HostServer
             }
         }, ct, TaskCreationOptions.LongRunning, TaskScheduler.Default);
     }
-    private void SendMessage(string surname, string name, string message)
+    private void SendMessages(string surname, string name, string message)
     {
         foreach (var socket in _clientsSockets)
         {

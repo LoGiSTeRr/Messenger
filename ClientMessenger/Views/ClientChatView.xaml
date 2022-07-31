@@ -10,7 +10,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Regular"
              TextElement.FontSize="13"
@@ -40,7 +40,7 @@
                   ItemsSource="{Binding UserManager.Users}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <materialDesign:Chip
+                    <md:Chip
                         BorderThickness="1"
                         Icon="{Binding Prefix}"
                         Content="{Binding FullName}"
@@ -57,9 +57,9 @@
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      TextWrapping="Wrap"
                      MaxWidth="400"
-                     materialDesign:HintAssist.Hint="Message" />
-            <Button Grid.Column="1" Margin="5 0 5 0">
-                <materialDesign:PackIcon  Kind="Send" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                     md:HintAssist.Hint="Message" />
+            <Button Grid.Column="1" Margin="5 0 5 0" Command="{Binding SendMessageCommand}">
+                <md:PackIcon  Kind="Send" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Button>
         </Grid>
         
@@ -69,7 +69,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:Chip
+                        <md:Chip
                             BorderThickness="1"
                             Icon="{Binding  MessageBy.Prefix}"
                             Content="{Binding MessageBy.FullName}"
@@ -78,7 +78,6 @@
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            
         </ListView>
         
         
