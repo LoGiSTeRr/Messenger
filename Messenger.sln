@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientMessenger", "ClientMe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerMessenger", "ServerMessenger\ServerMessenger.csproj", "{8B443A5E-696B-4EF4-AD63-D2B73A6E385E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelsLibrary", "ModelsLibrary\ModelsLibrary.csproj", "{CBA91AB2-7F36-4F4A-BAB2-327C6C733895}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{8B443A5E-696B-4EF4-AD63-D2B73A6E385E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B443A5E-696B-4EF4-AD63-D2B73A6E385E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B443A5E-696B-4EF4-AD63-D2B73A6E385E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBA91AB2-7F36-4F4A-BAB2-327C6C733895}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBA91AB2-7F36-4F4A-BAB2-327C6C733895}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBA91AB2-7F36-4F4A-BAB2-327C6C733895}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBA91AB2-7F36-4F4A-BAB2-327C6C733895}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

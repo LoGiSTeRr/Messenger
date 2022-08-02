@@ -1,18 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "sA+IfigsBrtDnLznPN4D2hP5f02nCimkoaNgUE1T8/87e0U2tVzdQZpMiTvU7k8rKgx0ympT+cHXcsE1vtPbzQ==",
+  "dgSpecHash": "3Tywt08NMPjsR4pf/EZlNJ7Cq8oHDXSlcQinAxp5OBZFnXQznh9T9Qk7ZT9RGqK6MnmZRDukoxcZpUnlsYKBiQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Boro_ha61\\RiderProjects\\Messenger\\ClientMessenger\\ClientMessenger.csproj",
+  "projectFilePath": "D:\\RiderProjects\\Messenger\\ClientMessenger\\ClientMessenger.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Boro_ha61\\.nuget\\packages\\communitytoolkit.mvvm\\8.0.0-preview3\\communitytoolkit.mvvm.8.0.0-preview3.nupkg.sha512",
-    "C:\\Users\\Boro_ha61\\.nuget\\packages\\materialdesigncolors\\2.0.7-ci246\\materialdesigncolors.2.0.7-ci246.nupkg.sha512",
-    "C:\\Users\\Boro_ha61\\.nuget\\packages\\materialdesignthemes\\4.6.0-ci246\\materialdesignthemes.4.6.0-ci246.nupkg.sha512",
-    "C:\\Users\\Boro_ha61\\.nuget\\packages\\microsoft.netcore.platforms\\1.0.1\\microsoft.netcore.platforms.1.0.1.nupkg.sha512",
-    "C:\\Users\\Boro_ha61\\.nuget\\packages\\microsoft.netcore.targets\\1.0.1\\microsoft.netcore.targets.1.0.1.nupkg.sha512",
-    "C:\\Users\\Boro_ha61\\.nuget\\packages\\newtonsoft.json\\13.0.2-beta1\\newtonsoft.json.13.0.2-beta1.nupkg.sha512",
-    "C:\\Users\\Boro_ha61\\.nuget\\packages\\simpleinjector\\5.3.3\\simpleinjector.5.3.3.nupkg.sha512",
-    "C:\\Users\\Boro_ha61\\.nuget\\packages\\system.componentmodel\\4.0.1\\system.componentmodel.4.0.1.nupkg.sha512",
-    "C:\\Users\\Boro_ha61\\.nuget\\packages\\system.runtime\\4.1.0\\system.runtime.4.1.0.nupkg.sha512"
+    "C:\\Users\\GL503GE\\.nuget\\packages\\communitytoolkit.mvvm\\8.0.0-preview3\\communitytoolkit.mvvm.8.0.0-preview3.nupkg.sha512",
+    "C:\\Users\\GL503GE\\.nuget\\packages\\materialdesigncolors\\2.0.7-ci246\\materialdesigncolors.2.0.7-ci246.nupkg.sha512",
+    "C:\\Users\\GL503GE\\.nuget\\packages\\materialdesignthemes\\4.6.0-ci246\\materialdesignthemes.4.6.0-ci246.nupkg.sha512",
+    "C:\\Users\\GL503GE\\.nuget\\packages\\microsoft.netcore.platforms\\1.0.1\\microsoft.netcore.platforms.1.0.1.nupkg.sha512",
+    "C:\\Users\\GL503GE\\.nuget\\packages\\microsoft.netcore.targets\\1.0.1\\microsoft.netcore.targets.1.0.1.nupkg.sha512",
+    "C:\\Users\\GL503GE\\.nuget\\packages\\newtonsoft.json\\13.0.2-beta1\\newtonsoft.json.13.0.2-beta1.nupkg.sha512",
+    "C:\\Users\\GL503GE\\.nuget\\packages\\simpleinjector\\5.3.3\\simpleinjector.5.3.3.nupkg.sha512",
+    "C:\\Users\\GL503GE\\.nuget\\packages\\system.componentmodel\\4.0.1\\system.componentmodel.4.0.1.nupkg.sha512",
+    "C:\\Users\\GL503GE\\.nuget\\packages\\system.runtime\\4.1.0\\system.runtime.4.1.0.nupkg.sha512"
   ],
   "logs": []
 }

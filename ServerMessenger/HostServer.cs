@@ -39,11 +39,12 @@ public class HostServer
 
                 Task.Factory.StartNew(() =>
                 {
+                    
                     if (!_clientsSockets.TryTake(out Socket? client))
                     {
                         return;
                     }
-
+                    
                     Console.WriteLine("Client connected");
 
                     byte[] messageBuffer = new byte[2048];
@@ -60,8 +61,7 @@ public class HostServer
                             Console.WriteLine("Message Received");
 
                             string[] messageReceived = Encoding.UTF8.GetString(messageBuffer).Split('|');
-                            SendMessages(messageReceived[0], messageReceived[1], messageReceived[2]);
-                            Console.WriteLine("Message Sent Everyone");
+                            SendMessages(messageReceived[0],messageReceived[1], messageReceived[2], messageReceived[3]);
                         }
 
                     }
@@ -77,11 +77,11 @@ public class HostServer
             }
         }, ct, TaskCreationOptions.LongRunning, TaskScheduler.Default);
     }
-    private void SendMessages(string surname, string name, string message)
+    private void SendMessages(string messageType, string surname, string name, string message)
     {
         foreach (var socket in _clientsSockets)
         {
-            socket.Send(Encoding.UTF8.GetBytes($"{surname}|{name}|{message}"));
-        } 
+            socket.Send(Encoding.UTF8.GetBytes($"{messageType}|{surname}|{name}|{message}"));
+        }
     }
 }

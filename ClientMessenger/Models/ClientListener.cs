@@ -28,7 +28,7 @@ public class ClientListener : IClientListener
     {
         try
         {
-            _client.Connect(_endPoint);
+            await _client.ConnectAsync(_endPoint);
             isConnected = true;
             await StartListeningAsync();
             return true;
@@ -65,7 +65,6 @@ public class ClientListener : IClientListener
             {
                 return;
             }
-            MessageBox.Show("1");
 
             Task.Factory.StartNew(() =>
             {
@@ -73,11 +72,9 @@ public class ClientListener : IClientListener
 
                 _client.Bind(_endPoint);
                 _client.Listen();
-                MessageBox.Show("2");
                 while (true)
                 {
                     _client.Receive(messageBuffer);
-                    MessageBox.Show("3");
                     string message = Encoding.UTF8.GetString(messageBuffer);
                     ReceiveMessage(message);
                 }
@@ -88,11 +85,23 @@ public class ClientListener : IClientListener
     private void ReceiveMessage(string message)
     {
         string[] messageReceived = message.Split('|');
-        App.Container.GetInstance<MessageManager>().AddMessage(new Message()
+        switch (messageReceived[0])
         {
-            Content = messageReceived[2],
-            MessageBy = App.Container.GetInstance<UserManager>().Users
-                .First(u => u.FullName == $"{messageReceived[0]} {messageReceived[1]}")
-        });
+            case "AddUserToList":
+                break;
+            case "AddMessage":
+                {
+                    App.Container.GetInstance<MessageManager>().AddMessage(new Message()
+                    {
+                        Content = messageReceived[3],
+                        MessageBy = App.Container.GetInstance<UserManager>().Users
+                            .First(u => u.FullName == $"{messageReceived[1]} {messageReceived[2]}")
+                    });
+                }
+                break;
+            case "UserDisconnected":
+                break;
+        }
+
     }
 }
