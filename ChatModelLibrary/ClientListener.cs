@@ -4,9 +4,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using ClientMessenger.Services;
 
-namespace ClientMessenger.Models;
+namespace ChatModelLibrary;
 
 public class ClientListener : IClientListener
 {
@@ -84,24 +83,23 @@ public class ClientListener : IClientListener
 
     private void ReceiveMessage(string message)
     {
-        string[] messageReceived = message.Split('|');
-        switch (messageReceived[0])
-        {
-            case "AddUserToList":
-                break;
-            case "AddMessage":
-                {
-                    App.Container.GetInstance<MessageManager>().AddMessage(new Message()
-                    {
-                        Content = messageReceived[3],
-                        MessageBy = App.Container.GetInstance<UserManager>().Users
-                            .First(u => u.FullName == $"{messageReceived[1]} {messageReceived[2]}")
-                    });
-                }
-                break;
-            case "UserDisconnected":
-                break;
-        }
-
+        // string[] messageReceived = message.Split('|');
+        // switch (messageReceived[0])
+        // {
+        //     case "AddUserToList":
+        //         break;
+        //     case "AddMessage":
+        //         {
+        //             App.Container.GetInstance<MessageManager>().AddMessage(new Message()
+        //             {
+        //                 Content = messageReceived[3],
+        //                 MessageBy = App.Container.GetInstance<UserManager>().Users
+        //                     .First(u => u.FullName == $"{messageReceived[1]} {messageReceived[2]}")
+        //             });
+        //         }
+        //         break;
+        //     case "UserDisconnected":
+        //         break;
+        // }
     }
 }

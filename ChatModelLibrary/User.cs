@@ -1,8 +1,6 @@
-﻿using System;
+﻿namespace ChatModelLibrary;
 
-namespace ClientMessenger.Models;
-
-public class User
+public class User : IUser
 {
     public IClientListener ClientListener { get; } = new ClientListener();
     public string Name { get; set; }
