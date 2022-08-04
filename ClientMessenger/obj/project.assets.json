@@ -98,6 +98,16 @@
         "compile": {
           "ref/netstandard1.5/System.Runtime.dll": {}
         }
+      },
+      "ChatModelLibrary/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/ChatModelLibrary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ChatModelLibrary.dll": {}
+        }
       }
     }
   },
@@ -424,10 +434,16 @@
         "system.runtime.4.1.0.nupkg.sha512",
         "system.runtime.nuspec"
       ]
+    },
+    "ChatModelLibrary/1.0.0": {
+      "type": "project",
+      "path": "../ChatModelLibrary/ChatModelLibrary.csproj",
+      "msbuildProject": "../ChatModelLibrary/ChatModelLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
+      "ChatModelLibrary >= 1.0.0",
       "CommunityToolkit.Mvvm >= 8.0.0-preview3",
       "MaterialDesignColors >= 2.0.7-ci246",
       "MaterialDesignThemes >= 4.6.0-ci246",
@@ -436,23 +452,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Boro_ha61\\.nuget\\packages\\": {},
+    "C:\\Users\\GL503GE\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Boro_ha61\\RiderProjects\\Messenger\\ClientMessenger\\ClientMessenger.csproj",
+      "projectUniqueName": "D:\\RiderProjects\\Messenger\\ClientMessenger\\ClientMessenger.csproj",
       "projectName": "ClientMessenger",
-      "projectPath": "C:\\Users\\Boro_ha61\\RiderProjects\\Messenger\\ClientMessenger\\ClientMessenger.csproj",
-      "packagesPath": "C:\\Users\\Boro_ha61\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Boro_ha61\\RiderProjects\\Messenger\\ClientMessenger\\obj\\",
+      "projectPath": "D:\\RiderProjects\\Messenger\\ClientMessenger\\ClientMessenger.csproj",
+      "packagesPath": "C:\\Users\\GL503GE\\.nuget\\packages\\",
+      "outputPath": "D:\\RiderProjects\\Messenger\\ClientMessenger\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Boro_ha61\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\GL503GE\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -466,7 +482,11 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\RiderProjects\\Messenger\\ChatModelLibrary\\ChatModelLibrary.csproj": {
+              "projectPath": "D:\\RiderProjects\\Messenger\\ChatModelLibrary\\ChatModelLibrary.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -518,7 +538,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }

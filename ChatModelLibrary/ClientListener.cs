@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -38,7 +39,7 @@ public class ClientListener : IClientListener
         }
     }
 
-    public bool SendMessage(string surname, string name, string message)
+    public bool SendMessage(IMessage message)
     {
         if (!_isConnected)
         {
@@ -47,7 +48,7 @@ public class ClientListener : IClientListener
 
         try
         {
-            _client.Send(Encoding.UTF8.GetBytes($"{surname}|{name}|{message}"));
+            _client.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message)));
             return true;
         }
         catch (SocketException e)
@@ -83,6 +84,12 @@ public class ClientListener : IClientListener
 
     private void ReceiveMessage(string message)
     {
+
+        
+
+
+
+
         // string[] messageReceived = message.Split('|');
         // switch (messageReceived[0])
         // {

@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientMessenger", "ClientMe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerMessenger", "ServerMessenger\ServerMessenger.csproj", "{8B443A5E-696B-4EF4-AD63-D2B73A6E385E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatModelLibrary", "ChatModelLibrary\ChatModelLibrary.csproj", "{AACDEE3E-6D8D-41D4-8F45-207E5700ED34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatModelLibrary", "ChatModelLibrary\ChatModelLibrary.csproj", "{68EFB2DF-4BB7-4DCB-9B68-A8B9371C630A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,9 +20,9 @@ Global
 		{8B443A5E-696B-4EF4-AD63-D2B73A6E385E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B443A5E-696B-4EF4-AD63-D2B73A6E385E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B443A5E-696B-4EF4-AD63-D2B73A6E385E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AACDEE3E-6D8D-41D4-8F45-207E5700ED34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AACDEE3E-6D8D-41D4-8F45-207E5700ED34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AACDEE3E-6D8D-41D4-8F45-207E5700ED34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AACDEE3E-6D8D-41D4-8F45-207E5700ED34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68EFB2DF-4BB7-4DCB-9B68-A8B9371C630A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68EFB2DF-4BB7-4DCB-9B68-A8B9371C630A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68EFB2DF-4BB7-4DCB-9B68-A8B9371C630A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68EFB2DF-4BB7-4DCB-9B68-A8B9371C630A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
