@@ -2,20 +2,27 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using ChatModelLibrary;
+using ChatModelLibrary.Messages;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+
+namespace ServerMessenger;
 
 public class HostServer
 {
+    private int _id;
     private Socket _server;
     private IPAddress _ipAddress;
     private IPEndPoint _endPoint;
-    private ConcurrentBag<Socket> _clientsSockets;
+    private ConcurrentBag<Client> _chatClients;
 
     public HostServer()
     {
-        _server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+        _server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         _ipAddress = IPAddress.Parse("127.0.0.1");
         _endPoint = new IPEndPoint(_ipAddress, 44433);
-        _clientsSockets = new ConcurrentBag<Socket>();
+        _chatClients = new ConcurrentBag<Client>();
     }
 
     public void Launch()
@@ -33,55 +40,101 @@ public class HostServer
             {
                 Console.WriteLine("Waiting for client");
                 
-                Socket clientSocket = _server.Accept();
-
-                _clientsSockets.Add(clientSocket);
+                Client clientConnected = new Client(_server.Accept());
+                
+                _chatClients.Add(clientConnected);
 
                 Task.Factory.StartNew(() =>
                 {
-                    
-                    if (!_clientsSockets.TryTake(out Socket? client))
+                    if (!_chatClients.TryTake(out Client? client))
                     {
                         return;
                     }
                     
-                    Console.WriteLine("Client connected");
+                    Console.WriteLine("Socket connected");
 
                     byte[] messageBuffer = new byte[2048];
 
                     try
                     {
-                        while (true)
+                        while (client.ClientSocket.Connected)
                         {
                             if (ct.IsCancellationRequested)
                             {
                                 ct.ThrowIfCancellationRequested();
                             }
-                            client.Receive(messageBuffer);
+                            client.ClientSocket.Receive(messageBuffer);
                             Console.WriteLine("Message Received");
-
-                            string[] messageReceived = Encoding.UTF8.GetString(messageBuffer).Split('|');
-                            SendMessages(messageReceived[0],messageReceived[1], messageReceived[2], messageReceived[3]);
+                            ReceiveMessage(client, messageBuffer.ToString()!);
                         }
-
                     }
                     catch (Exception ex) when (ex is SocketException or ObjectDisposedException)
                     {
-                        Console.WriteLine("Client disconnected");
+                        Console.WriteLine("Socket disconnected");
                     }
                     finally
                     {
-                        client.Dispose();
+                        Console.WriteLine("Socket disconnected");
+                        client.ClientSocket.Dispose();
                     }
                 }, TaskCreationOptions.LongRunning);
             }
         }, ct, TaskCreationOptions.LongRunning, TaskScheduler.Default);
     }
-    private void SendMessages(string messageType, string surname, string name, string message)
+    
+    private void ReceiveMessage(Client client, string message)
     {
-        foreach (var socket in _clientsSockets)
+        MessageToBroadCast mbc = JsonSerializer.Deserialize<MessageToBroadCast>(message)!;
+        switch (mbc.MessageType)
         {
-            socket.Send(Encoding.UTF8.GetBytes($"{messageType}|{surname}|{name}|{message}"));
+            case PackageMessageType.UserConnected:
+            {
+                client.UserName = mbc.Message!.ToString()!;
+                MessageToBroadCast toBroadCast = new MessageToBroadCast()
+                {
+                    MessageType = PackageMessageType.UserConnected,
+                    Message = client
+                };
+                foreach (Client chatClient in _chatClients)
+                {
+                    client.ClientSocket.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(new MessageToBroadCast
+                    {
+                        MessageType = PackageMessageType.UserConnected,
+                        Message = chatClient
+                    })));
+                }
+                foreach (Client chatClient in _chatClients)
+                {
+                    chatClient.ClientSocket.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(toBroadCast)));
+                }
+            }
+                break;
+            case PackageMessageType.UserDisconnected:
+            {
+                MessageToBroadCast toBroadCast = new MessageToBroadCast()
+                {
+                    MessageType = PackageMessageType.UserDisconnected,
+                    Message = client
+                };
+                foreach (Client chatClient in _chatClients)
+                {
+                    chatClient.ClientSocket.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(toBroadCast)));
+                }
+            }
+                break;
+            case PackageMessageType.MessageSentToChat:
+            {
+                MessageToBroadCast toBroadCast = new MessageToBroadCast()
+                {
+                    MessageType = PackageMessageType.MessageSentToChat,
+                    Message = mbc.Message
+                };
+                foreach (Client chatClient in _chatClients)
+                {
+                    chatClient.ClientSocket.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(toBroadCast)));
+                }
+            }
+                break;
         }
     }
 }

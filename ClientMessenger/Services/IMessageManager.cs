@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using ClientMessenger.Models;
+using ChatModelLibrary;
+using ChatModelLibrary.Messages;
 
 namespace ClientMessenger.Services;
 

@@ -1,6 +1,7 @@
-﻿using ClientMessenger.Enums;
+﻿using ChatModelLibrary;
+using ChatModelLibrary.Messages;
+using ClientMessenger.Enums;
 using ClientMessenger.Messages;
-using ClientMessenger.Models;
 using ClientMessenger.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -11,19 +12,19 @@ namespace ClientMessenger.ViewModels;
 public partial class ClientChatViewModel : ViewModel
 {
     [ObservableProperty] private IUserManager _userManager;
-
     [ObservableProperty] private IMessageManager _messageManager;
 
-    public User SelectedUser { get; set; }
+    private IClientListener _clientServer;
     public ClientChatViewModel()
     {
+        _clientServer = App.Container.GetInstance<ClientListener>();
         _userManager = App.Container.GetInstance<UserManager>();
         _messageManager = App.Container.GetInstance<MessageManager>();
     }
-
+    
     [ICommand]
     void SendMessage(string message)
     {
-        SelectedUser.ClientListener.SendMessage(SelectedUser.FullName, SelectedUser.Name, message);
+        _clientServer.SendMessage(message);
     }
 }

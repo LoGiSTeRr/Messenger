@@ -1,25 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using ClientMessenger.Models;
 
 namespace ClientMessenger.Services;
 
 class UserManager : IUserManager
 {
-    public IList<User> Users { get; }
+    public ObservableCollection<User> Users { get; }
 
     public UserManager()
     {
-        Users = new List<User>();
+        Users = new ObservableCollection<User>();
     }
     
-    public void AddUser(User user)
+    public void AddUser(User client)
     {
-        Users.Add(user);
+        Users.Add(client);
     }
 
-    public void RemoveUser(User user)
+    public void RemoveUser(User client)
     {
-        Users.Remove(user);
-
+        Users.Remove(client);
     }
 }

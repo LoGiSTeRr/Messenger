@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ChatModelLibrary;
 using ClientMessenger.Enums;
 using ClientMessenger.Messages;
 using ClientMessenger.Models;
@@ -16,51 +17,36 @@ public partial class RegistrationUserViewModel : ViewModel
 {
     [ObservableProperty] private IUserManager _userManager;
 
-    [ObservableProperty] private string _name;
-    [ObservableProperty] private string _lastName;
+    [ObservableProperty] private string _username;
 
     [ObservableProperty] private string _errorInfo;
 
+    private IClientListener _clientServer;
+
     public RegistrationUserViewModel()
     {
+        _clientServer = App.Container.GetInstance<ClientListener>();
         _userManager = App.Container.GetInstance<UserManager>();
     }
 
     [ICommand]
     async void RegisterUser()
     {
-        if (_userManager.Users.FirstOrDefault(u => u.FullName == $"{LastName} {Name}") is not null)
+        if (string.IsNullOrEmpty(Username))
         {
-            ErrorInfo = "The user with this fullname already exists";
-            return;
-        }
-        if (string.IsNullOrEmpty(Name))
-        {
-            ErrorInfo = "Incorrect name entered";
-            return;
-        }
-        if (string.IsNullOrEmpty(LastName))
-        {
-            ErrorInfo = "Incorrect lastname entered";
+            ErrorInfo = "Incorrect username entered";
             return;
         }
 
-        User user = new User()
-        {
-            Name = Name,
-            LastName = LastName
-        };
-
-        if (!await user.ClientListener.Connect())
+        if (!await _clientServer.Connect(Username))
         {
             ErrorInfo = "Connection failed. Try again later";
             return;
         }
+        await _clientServer.StartListeningAsync();
         
         WeakReferenceMessenger.Default.Send(new ChangeViewMessage(ViewModelEnum.ClientChatViewModel));
-        _userManager.AddUser(user);
-        App.Container.GetInstance<ClientChatViewModel>().SelectedUser = user;
-        
+
 
     }
 }

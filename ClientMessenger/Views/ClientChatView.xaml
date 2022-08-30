@@ -19,10 +19,6 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}">
 
-    <UserControl.Resources>
-        <s:FirstCharValueConverter x:Key="PrefixValueConverter" />
-    </UserControl.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -42,8 +38,8 @@
                 <DataTemplate>
                     <md:Chip
                         BorderThickness="1"
-                        Icon="{Binding Prefix}"
-                        Content="{Binding FullName}"
+                        Icon="{Binding Username[0]}"
+                        Content="{Binding Username}"
                         Style="{StaticResource MaterialDesignOutlineChip}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -64,15 +60,15 @@
         </Grid>
         
         
-        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"  
+        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"
                   ItemsSource="{Binding MessageManager.Messages}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <md:Chip
                             BorderThickness="1"
-                            Icon="{Binding  MessageBy.Prefix}"
-                            Content="{Binding MessageBy.FullName}"
+                            Icon="{Binding  MessageBy[0]}"
+                            Content="{Binding MessageBy}"
                             Style="{StaticResource MaterialDesignOutlineChip}" />
                         <TextBlock Text="{Binding Content}" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
