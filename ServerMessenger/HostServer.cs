@@ -46,7 +46,7 @@ public class HostServer
 
                 Task.Factory.StartNew(() =>
                 {
-                    if (!_chatClients.TryTake(out Client? client))
+                    if (!_chatClients.TryPeek(out Client? client))
                     {
                         return;
                     }
@@ -65,7 +65,7 @@ public class HostServer
                             }
                             client.ClientSocket.Receive(messageBuffer);
                             Console.WriteLine("Message Received");
-                            ReceiveMessage(client, messageBuffer.ToString()!);
+                            ReceiveMessage(client, Encoding.UTF8.GetString(messageBuffer));
                         }
                     }
                     catch (Exception ex) when (ex is SocketException or ObjectDisposedException)
@@ -84,7 +84,7 @@ public class HostServer
     
     private void ReceiveMessage(Client client, string message)
     {
-        MessageToBroadCast mbc = JsonSerializer.Deserialize<MessageToBroadCast>(message)!;
+        MessageToBroadCast? mbc = JsonSerializer.Deserialize<MessageToBroadCast>(message.Substring(0, message.IndexOf('\0')))!;
         switch (mbc.MessageType)
         {
             case PackageMessageType.UserConnected:
@@ -93,14 +93,14 @@ public class HostServer
                 MessageToBroadCast toBroadCast = new MessageToBroadCast()
                 {
                     MessageType = PackageMessageType.UserConnected,
-                    Message = client
+                    Message = client.UserName
                 };
                 foreach (Client chatClient in _chatClients)
                 {
                     client.ClientSocket.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(new MessageToBroadCast
                     {
                         MessageType = PackageMessageType.UserConnected,
-                        Message = chatClient
+                        Message = chatClient.UserName
                     })));
                 }
                 foreach (Client chatClient in _chatClients)

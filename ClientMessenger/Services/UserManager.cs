@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using ChatModelLibrary;
 using ClientMessenger.Models;
 
 namespace ClientMessenger.Services;

@@ -452,23 +452,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\GL503GE\\.nuget\\packages\\": {},
+    "C:\\Users\\Boro_ha61\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\RiderProjects\\Messenger\\ClientMessenger\\ClientMessenger.csproj",
+      "projectUniqueName": "C:\\Users\\Boro_ha61\\RiderProjects\\Messenger\\ClientMessenger\\ClientMessenger.csproj",
       "projectName": "ClientMessenger",
-      "projectPath": "D:\\RiderProjects\\Messenger\\ClientMessenger\\ClientMessenger.csproj",
-      "packagesPath": "C:\\Users\\GL503GE\\.nuget\\packages\\",
-      "outputPath": "D:\\RiderProjects\\Messenger\\ClientMessenger\\obj\\",
+      "projectPath": "C:\\Users\\Boro_ha61\\RiderProjects\\Messenger\\ClientMessenger\\ClientMessenger.csproj",
+      "packagesPath": "C:\\Users\\Boro_ha61\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Boro_ha61\\RiderProjects\\Messenger\\ClientMessenger\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\GL503GE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Boro_ha61\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -483,8 +483,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "D:\\RiderProjects\\Messenger\\ChatModelLibrary\\ChatModelLibrary.csproj": {
-              "projectPath": "D:\\RiderProjects\\Messenger\\ChatModelLibrary\\ChatModelLibrary.csproj"
+            "C:\\Users\\Boro_ha61\\RiderProjects\\Messenger\\ChatModelLibrary\\ChatModelLibrary.csproj": {
+              "projectPath": "C:\\Users\\Boro_ha61\\RiderProjects\\Messenger\\ChatModelLibrary\\ChatModelLibrary.csproj"
             }
           }
         }
@@ -538,7 +538,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

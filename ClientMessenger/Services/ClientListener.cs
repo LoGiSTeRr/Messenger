@@ -42,7 +42,7 @@ public class ClientListener : IClientListener
                 MessageType = PackageMessageType.UserConnected,
                 Message = new string(username)
             };
-            _user = new User {Username = username};
+            _user = new User { Username = username };
             _client.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message)));
             return true;
         }
@@ -64,7 +64,7 @@ public class ClientListener : IClientListener
             MessageToBroadCast messageToBroadCast = new MessageToBroadCast()
             {
                 MessageType = PackageMessageType.MessageSentToChat,
-                Message = new Message {Content = message, MessageBy = _user.Username}
+                Message = new Message { Content = message, MessageBy = _user.Username }
             };
             _client.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(messageToBroadCast)));
             return true;
@@ -81,22 +81,24 @@ public class ClientListener : IClientListener
         {
             await _client.ConnectAsync(_endPoint);
         }
-        await Task.Run(() =>
+
+        await Task.Run(async () =>
         {
             var messageBuffer = new byte[2048];
+
             while (true)
             {
-                _client.Receive(messageBuffer, SocketFlags.None);
+                await _client.ReceiveAsync(messageBuffer, SocketFlags.None);
                 string message = Encoding.UTF8.GetString(messageBuffer);
-                MessageBox.Show("message received");
-                //ReceiveMessage(message);
+                ReceiveMessage(message);
             }
         });
     }
 
     private void ReceiveMessage(string message)
     {
-        MessageToBroadCast? mbd = JsonSerializer.Deserialize<MessageToBroadCast>(message);
+        MessageToBroadCast? mbd =
+            JsonSerializer.Deserialize<MessageToBroadCast>(message.Substring(0, message.IndexOf('\0')))!;
 
         switch (mbd.MessageType)
         {

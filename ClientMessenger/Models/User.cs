@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ClientMessenger.Models;
+﻿namespace ClientMessenger.Models;
 
 public class User
 {

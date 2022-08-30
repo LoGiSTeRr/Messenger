@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using ChatModelLibrary;
 using ClientMessenger.Enums;
 using ClientMessenger.Messages;
-using ClientMessenger.Models;
 using ClientMessenger.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
