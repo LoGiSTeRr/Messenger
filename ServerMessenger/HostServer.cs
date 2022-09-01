@@ -11,7 +11,6 @@ namespace ServerMessenger;
 
 public class HostServer
 {
-    private int _id;
     private Socket _server;
     private IPAddress _ipAddress;
     private IPEndPoint _endPoint;
@@ -44,7 +43,7 @@ public class HostServer
                 
                 _chatClients.Add(clientConnected);
 
-                Task.Factory.StartNew(() =>
+                Task.Factory.StartNew(async() =>
                 {
                     if (!_chatClients.TryPeek(out Client? client))
                     {
@@ -63,7 +62,9 @@ public class HostServer
                             {
                                 ct.ThrowIfCancellationRequested();
                             }
-                            client.ClientSocket.Receive(messageBuffer);
+
+                            Console.WriteLine("Waiting for message");
+                            await client.ClientSocket.ReceiveAsync(messageBuffer, SocketFlags.None);
                             Console.WriteLine("Message Received");
                             ReceiveMessage(client, Encoding.UTF8.GetString(messageBuffer));
                         }
@@ -97,6 +98,10 @@ public class HostServer
                 };
                 foreach (Client chatClient in _chatClients)
                 {
+                    if (chatClient.UserName == client.UserName)
+                    {
+                        continue;
+                    }
                     client.ClientSocket.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(new MessageToBroadCast
                     {
                         MessageType = PackageMessageType.UserConnected,

@@ -22,9 +22,11 @@ public class ClientListener : IClientListener
     private IUserManager _userManager;
     private IMessageManager _messageManager;
     private User _user;
+    private SynchronizationContext _uiContext;
 
     public ClientListener()
     {
+        _uiContext = SynchronizationContext.Current;
         _userManager = App.Container.GetInstance<UserManager>();
         _messageManager = App.Container.GetInstance<MessageManager>();
         _client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -36,14 +38,17 @@ public class ClientListener : IClientListener
     {
         try
         {
+            MessageBox.Show("I start connection!");
             await _client.ConnectAsync(_endPoint);
+            MessageBox.Show("connected!!");
             IMessageToBroadCast message = new MessageToBroadCast()
             {
                 MessageType = PackageMessageType.UserConnected,
                 Message = new string(username)
             };
-            _user = new User { Username = username };
-            _client.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message)));
+            _user = new User {Username = username};
+            _client.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message)), SocketFlags.None);
+            MessageBox.Show("Message Sent!");
             return true;
         }
         catch (SocketException e)
@@ -64,7 +69,7 @@ public class ClientListener : IClientListener
             MessageToBroadCast messageToBroadCast = new MessageToBroadCast()
             {
                 MessageType = PackageMessageType.MessageSentToChat,
-                Message = new Message { Content = message, MessageBy = _user.Username }
+                Message = new Message {Content = message, MessageBy = _user.Username}
             };
             _client.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(messageToBroadCast)));
             return true;
@@ -104,25 +109,27 @@ public class ClientListener : IClientListener
         {
             case PackageMessageType.UserConnected:
             {
-                _userManager.AddUser(new User()
+                _uiContext.Send(x => _userManager.AddUser(new User()
                 {
                     Username = mbd.Message!.ToString()!
-                });
+                }), null);
             }
                 break;
             case PackageMessageType.UserDisconnected:
             {
-                _userManager.RemoveUser(_userManager.Users.First(user => user.Username == mbd.Message!.ToString()!));
+                _uiContext.Send(
+                    x => _userManager.RemoveUser(_userManager.Users.First(user =>
+                        user.Username == mbd.Message!.ToString()!)), null);
             }
                 break;
             case PackageMessageType.MessageSentToChat:
             {
                 IMessage msg = mbd.Message as Message;
-                _messageManager.AddMessage(new Message()
+                _uiContext.Send(x => _messageManager.AddMessage(new Message()
                 {
                     Content = msg.Content,
                     MessageBy = mbd.Message!.ToString()!
-                });
+                }), null);
             }
                 break;
         }

@@ -42,10 +42,7 @@ public partial class RegistrationUserViewModel : ViewModel
             ErrorInfo = "Connection failed. Try again later";
             return;
         }
-        await _clientServer.StartListeningAsync();
-        
         WeakReferenceMessenger.Default.Send(new ChangeViewMessage(ViewModelEnum.ClientChatViewModel));
-
-
+        await _clientServer.StartListeningAsync();
     }
 }
