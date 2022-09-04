@@ -26,5 +26,12 @@ namespace ClientMessenger.Views
             InitializeComponent();
             DataContext = App.Container.GetInstance<MainViewModel>();
         }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            
+            Application.Current.Shutdown();
+        }
     }
 }

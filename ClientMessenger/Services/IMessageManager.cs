@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using ChatModelLibrary;
 using ChatModelLibrary.Messages;
 
@@ -6,6 +7,6 @@ namespace ClientMessenger.Services;
 
 public interface IMessageManager
 {
-    public IList<Message> Messages { get; }
-    void AddMessage(Message message);
+    public ObservableCollection<IMessage> Messages { get; }
+    void AddMessage(IMessage message);
 }

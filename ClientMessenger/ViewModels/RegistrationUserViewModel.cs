@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ChatModelLibrary;
 using ClientMessenger.Enums;
 using ClientMessenger.Messages;
+using ClientMessenger.Models;
 using ClientMessenger.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -21,11 +22,29 @@ public partial class RegistrationUserViewModel : ViewModel
     [ObservableProperty] private string _errorInfo;
 
     private IClientListener _clientServer;
+    private SynchronizationContext _uiContext;
 
     public RegistrationUserViewModel()
     {
         _clientServer = App.Container.GetInstance<ClientListener>();
         _userManager = App.Container.GetInstance<UserManager>();
+        _uiContext = SynchronizationContext.Current;
+
+        _clientServer.UserConnected += message =>
+        {
+            _uiContext.Send(
+                x => _userManager.AddUser(new User()
+                {
+                    Username = message.Message!.ToString()!
+                }), null);
+        };
+
+        _clientServer.UserDisconnected += message =>
+        {
+            _uiContext.Send(
+                x => _userManager.RemoveUser(_userManager.Users.First(user =>
+                    user.Username == message.Message!.ToString()!)), null);
+        };
     }
 
     [ICommand]
@@ -42,6 +61,7 @@ public partial class RegistrationUserViewModel : ViewModel
             ErrorInfo = "Connection failed. Try again later";
             return;
         }
+
         WeakReferenceMessenger.Default.Send(new ChangeViewMessage(ViewModelEnum.ClientChatViewModel));
         await _clientServer.StartListeningAsync();
     }
