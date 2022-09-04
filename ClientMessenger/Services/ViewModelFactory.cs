@@ -1,4 +1,5 @@
-﻿using ClientMessenger.Enums;
+﻿using System;
+using ClientMessenger.Enums;
 using ClientMessenger.ViewModels;
 
 namespace ClientMessenger.Services;
@@ -10,7 +11,8 @@ public class ViewModelFactory
         return type switch
         {
             ViewModelEnum.ClientChatViewModel => App.Container.GetInstance<ClientChatViewModel>(),
-            ViewModelEnum.RegistrationUserViewModel => App.Container.GetInstance<RegistrationUserViewModel>()
+            ViewModelEnum.RegistrationUserViewModel => App.Container.GetInstance<RegistrationUserViewModel>(),
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using ChatModelLibrary;
+﻿using System.Threading;
 using ClientMessenger.Enums;
 using ClientMessenger.Messages;
 using ClientMessenger.Models;
@@ -17,23 +13,22 @@ public partial class RegistrationUserViewModel : ViewModel
 {
     [ObservableProperty] private IUserManager _userManager;
 
-    [ObservableProperty] private string _username;
+    [ObservableProperty] private string? _username;
 
-    [ObservableProperty] private string _errorInfo;
+    [ObservableProperty] private string? _errorInfo;
 
     private IClientListener _clientServer;
-    private SynchronizationContext _uiContext;
 
     public RegistrationUserViewModel()
     {
         _clientServer = App.Container.GetInstance<ClientListener>();
         _userManager = App.Container.GetInstance<UserManager>();
-        _uiContext = SynchronizationContext.Current;
+        var uiContext = SynchronizationContext.Current;
 
         _clientServer.UserConnected += message =>
         {
-            _uiContext.Send(
-                x => _userManager.AddUser(new User()
+            uiContext?.Send(
+                _ => _userManager.AddUser(new User()
                 {
                     Username = message.Message!.ToString()!
                 }), null);

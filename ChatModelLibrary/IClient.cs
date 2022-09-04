@@ -6,5 +6,5 @@ public interface IClient
 {
     
     public Socket ClientSocket { get; }
-    public string UserName { get; set; }
+    public string? UserName { get; set; }
 }

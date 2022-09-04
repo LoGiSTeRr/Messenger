@@ -4,7 +4,6 @@ using System.Net.Sockets;
 using System.Text;
 using ChatModelLibrary;
 using ChatModelLibrary.Messages;
-using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace ServerMessenger;
@@ -12,15 +11,14 @@ namespace ServerMessenger;
 public class HostServer
 {
     private Socket _server;
-    private IPAddress _ipAddress;
     private IPEndPoint _endPoint;
     private ConcurrentDictionary<Guid, Client> _chatClients;
 
     public HostServer()
     {
         _server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        _ipAddress = IPAddress.Parse("127.0.0.1");
-        _endPoint = new IPEndPoint(_ipAddress, 44433);
+        var ipAddress = IPAddress.Parse("127.0.0.1");
+        _endPoint = new IPEndPoint(ipAddress, 44433);
         _chatClients = new ConcurrentDictionary<Guid, Client>();
     }
 
@@ -79,7 +77,7 @@ public class HostServer
                                 Message = clientConnected.UserName
                             });
                             _chatClients.Remove(clientKey, out clientConnected!);
-                            foreach (var (key, chatClient) in _chatClients)
+                            foreach (var (_, chatClient) in _chatClients)
                             {
                                 chatClient.ClientSocket.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(toBroadCastAllUsers)));
                             }
@@ -112,7 +110,7 @@ public class HostServer
                     });
                     
                     List<MessageToBroadCast> toUniCastAllUsers = new List<MessageToBroadCast>();
-                    foreach (var (key, chatClient) in _chatClients)
+                    foreach (var (_, chatClient) in _chatClients)
                     {
                         toUniCastAllUsers.Add(new MessageToBroadCast
                         {
@@ -140,7 +138,7 @@ public class HostServer
                         MessageType = PackageMessageType.MessageSentToChat,
                         Message = mbc.Message
                     });
-                    foreach (var (key, chatClient) in _chatClients)
+                    foreach (var (_, chatClient) in _chatClients)
                     {
                         chatClient.ClientSocket.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(toBroadCastAllUsers)));
                     }
