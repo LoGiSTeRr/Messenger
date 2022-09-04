@@ -38,13 +38,6 @@ public partial class RegistrationUserViewModel : ViewModel
                     Username = message.Message!.ToString()!
                 }), null);
         };
-
-        _clientServer.UserDisconnected += message =>
-        {
-            _uiContext.Send(
-                x => _userManager.RemoveUser(_userManager.Users.First(user =>
-                    user.Username == message.Message!.ToString()!)), null);
-        };
     }
 
     [ICommand]

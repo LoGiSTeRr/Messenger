@@ -51,7 +51,7 @@ public class ClientListener : IClientListener
                 MessageType = PackageMessageType.UserConnected,
                 Message = new string(username)
             });
-            _user = new User {Username = username};
+            _user = new User { Username = username };
             _client.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(messageToBroadCast)), SocketFlags.None);
             return true;
         }
@@ -74,7 +74,7 @@ public class ClientListener : IClientListener
             messageToBroadCast.Add(new MessageToBroadCast()
             {
                 MessageType = PackageMessageType.MessageSentToChat,
-                Message = new Message {Content = message, MessageBy = _user.Username}
+                Message = new Message { Content = message, MessageBy = _user.Username }
             });
             _client.Send(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(messageToBroadCast)), SocketFlags.None);
             return true;
@@ -118,21 +118,11 @@ public class ClientListener : IClientListener
                 case PackageMessageType.UserConnected:
                     UserConnected?.Invoke(mbc);
                     break;
-                
                 case PackageMessageType.UserDisconnected:
-                {
                     UserDisconnected?.Invoke(mbc);
-                }
                     break;
                 case PackageMessageType.MessageSentToChat:
-                {
-                    IMessage? msg = JsonSerializer.Deserialize<Message>(mbc.Message.ToString());
-                    _uiContext.Send(x => _messageManager.AddMessage(new Message()
-                    {
-                        Content = msg.Content,
-                        MessageBy = msg.MessageBy
-                    }), null);
-                }
+                    MessageSentToChat?.Invoke(mbc);
                     break;
             }
         }

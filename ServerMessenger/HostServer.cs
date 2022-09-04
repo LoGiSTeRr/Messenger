@@ -22,7 +22,6 @@ public class HostServer
         _ipAddress = IPAddress.Parse("127.0.0.1");
         _endPoint = new IPEndPoint(_ipAddress, 44433);
         _chatClients = new ConcurrentDictionary<Guid, Client>();
-        
     }
 
     public void Launch()
